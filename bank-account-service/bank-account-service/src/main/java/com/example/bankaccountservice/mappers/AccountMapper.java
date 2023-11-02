@@ -1,5 +1,6 @@
 package com.example.bankaccountservice.mappers;
 
+import com.example.bankaccountservice.dto.BankAccountRequestDTO;
 import com.example.bankaccountservice.dto.BankAccountResponseDTO;
 import com.example.bankaccountservice.entities.BankAccount;
 import org.springframework.beans.BeanUtils;
@@ -13,4 +14,10 @@ public class AccountMapper {
         BeanUtils.copyProperties(bankAccount,bankAccountResponseDTO);
         return bankAccountResponseDTO;
     }
+    public BankAccount fromBankAccountt(BankAccountRequestDTO bankAccountRequestDTO){
+        BankAccount bankAccount =new BankAccount();
+        BeanUtils.copyProperties(bankAccountRequestDTO,bankAccount);
+        return bankAccount;
+    }
+
 }

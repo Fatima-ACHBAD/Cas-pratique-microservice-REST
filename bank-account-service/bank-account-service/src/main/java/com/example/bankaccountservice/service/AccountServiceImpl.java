@@ -22,13 +22,17 @@ public class AccountServiceImpl implements AccountService {
     private AccountMapper  accountMapper;
     @Override
     public BankAccountResponseDTO addAccount(BankAccountRequestDTO bankAccountDTO) {
-        BankAccount bankAccount=BankAccount.builder()
+        BankAccount bankAccount=accountMapper.fromBankAccountt(bankAccountDTO);
+        bankAccount.setId(UUID.randomUUID().toString());
+        bankAccount.setCreateAt(new Date());
+        /*BankAccount bankAccount=BankAccount.builder()
                 .id(UUID.randomUUID().toString())
                 .type(bankAccountDTO.getType())
                 .balance(bankAccountDTO.getBalance())
                 .currency(bankAccountDTO.getCurrency())
                 .createAt(new Date())
                 .build();
+         */
         BankAccount saveBankAccount = bankAccountRepository.save(bankAccount);
         /*BankAccountResponseDTO bankAccountResponseDTO= BankAccountResponseDTO.builder()
 
@@ -38,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
                 .currency(saveBankAccount.getCurrency())
                 .balance(saveBankAccount.getBalance())
                 .build();*/
-        accountMapper.fromBankAccount(saveBankAccount)
+       BankAccountResponseDTO bankAccountResponseDTO= accountMapper.fromBankAccount(saveBankAccount);
         return bankAccountResponseDTO;
     }
 }
