@@ -3,7 +3,6 @@ package com.example.bankaccountservice.service;
 import com.example.bankaccountservice.dto.BankAccountRequestDTO;
 import com.example.bankaccountservice.dto.BankAccountResponseDTO;
 import com.example.bankaccountservice.entities.BankAccount;
-import com.example.bankaccountservice.enums.AccountType;
 import com.example.bankaccountservice.mappers.AccountMapper;
 import com.example.bankaccountservice.repositories.BankAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,16 @@ public class AccountServiceImpl implements AccountService {
                 .currency(saveBankAccount.getCurrency())
                 .balance(saveBankAccount.getBalance())
                 .build();*/
+       BankAccountResponseDTO bankAccountResponseDTO= accountMapper.fromBankAccount(saveBankAccount);
+        return bankAccountResponseDTO;
+    }
+    @Override
+    public BankAccountResponseDTO updateAccount(String id, BankAccountRequestDTO bankAccountDTO) {
+        BankAccount bankAccount=accountMapper.fromBankAccountt(bankAccountDTO);
+        bankAccount.setId(id);
+        bankAccount.setCreateAt(new Date());
+        BankAccount saveBankAccount = bankAccountRepository.save(bankAccount);
+
        BankAccountResponseDTO bankAccountResponseDTO= accountMapper.fromBankAccount(saveBankAccount);
         return bankAccountResponseDTO;
     }
